@@ -12,5 +12,8 @@
   "license": "ISC",
   "dependencies": {
     "puppeteer": "^22.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
   }
 }
