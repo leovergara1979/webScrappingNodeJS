@@ -5,27 +5,31 @@ import fs from 'fs/promises';
 
 
 //*************************************************************solo marcador de goles********************************
-
+const id = 2407192;
 ( async () => {
     const navegador = await puppeteer.launch({
          //headless: false, //'new',
          //slowMo : 200,
     })
     const pagina = await navegador.newPage()
-    await pagina.goto('https://onefootball.com/es/partido/2398356')
+    await pagina.goto(`https://onefootball.com/es/partido/${id}`)
     
-    const element = await pagina.waitForSelector('#onetrust-accept-btn-handler');
+    const element = await pagina.waitForSelector('#onetrust-accept-btn-handler'); 
     await element.click(); 
                            
     
     const result = await pagina.evaluate(() => {
         // let goles =  document.querySelector('.MatchScore_scores__Hnn5f').innerText
-        let goles =  document.querySelector('.MatchScore_data__ahxqz').innerText
+        
+        let goles =  document.querySelector('.MatchScore_scores__Hnn5f').innerText  
+        let info =  document.querySelector('.MatchScore_data__ahxqz').innerText  
+
 
         
         return {
             
             goles : goles.toString().replace('\n:\n', '-'), 
+            info : info,
             
             
         }
@@ -34,6 +38,7 @@ import fs from 'fs/promises';
     console.log(result)
     
     await fs.writeFile('salida.json', JSON.stringify(result, null, 2))
+
     //await pagina.screenshot({path: 'capturaPantalla1.png'});
     setTimeout(function(){
         pagina.screenshot({path: 'capturaPantalla.png'});
