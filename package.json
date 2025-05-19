@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "mssql": "^11.0.1",
     "puppeteer": "^22.2.0"
   },
   "devDependencies": {
